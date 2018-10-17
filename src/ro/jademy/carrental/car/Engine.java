@@ -1,6 +1,6 @@
 package ro.jademy.carrental.car;
 
-public class Engine {
+public class Engine implements Comparable<Engine>{
 
     private double capacity;
     private FuelType fuelType;
@@ -34,6 +34,15 @@ public class Engine {
         return  "Engine { " + "capacity = "+ capacity +", fuelType = "+ fuelType +", horsePower = "+ horsePower + " }";
     }
 
+    @Override
+    public int compareTo(Engine engine) {
+
+        if (horsePower == engine.horsePower)
+            if (capacity == engine.capacity)
+                return (int) capacity;
+
+        return horsePower;
+    }
 //    public String getEngineSpecifications(){
 //        String outPut = String.format("%-5s%-5s%-5s",capacity,fuelType, horsePower);
 //        return outPut;

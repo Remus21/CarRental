@@ -16,8 +16,9 @@ public class Shop {
     private List<Salesman> salesmanList = new ArrayList<>();
     private List<Car> cars = new ArrayList<>();
     private Scanner sc = new Scanner(System.in);
+    private Comparator<Car> carComparator;
 
-    public  Shop() {
+    public Shop() {
 
         // Dacia
 
@@ -48,7 +49,6 @@ public class Shop {
                 Transmision.AUTOMATIC, new Engine(4.2, FuelType.GASOLINE, 512),
                 new BigDecimal(5000), true));
     }
-
 
 
     public boolean login() {
@@ -158,12 +158,13 @@ public class Shop {
         System.out.println("3. List rented cars");
         System.out.println("4. Check income");
         System.out.println("5. Show List Menu Options");
-        System.out.println("6. Exit");
+        System.out.println("6. Sort Menu");
+        System.out.println("7. Exit");
     }
 
-    public void checkOptionsMenu(){
+    public void checkOptionsMenu() {
 
-        switch (sc.nextInt()){
+        switch (sc.nextInt()) {
 
             case 1: {
                 listAllCars();
@@ -190,25 +191,31 @@ public class Shop {
                 checkListMenuOptions();
             }
             case 6: {
+                showListSortMenu();
+                sortMenu();
+                break;
+            }
+            case 7: {
                 System.exit(0);
             }
-            default:break;
+            default:
+                break;
         }
     }
 
-    public void listAllCars(){
+    public void listAllCars() {
 
         // showHeader();
-        for (Car car : cars){
+        for (Car car : cars) {
             car.showCarDetails();
         }
 
 
     }
 
-    public void listAvailableCars(){
+    public void listAvailableCars() {
 
-       // showHeader();
+        // showHeader();
         for (Car car : cars) {
             if (car.isAvailableCar()) {
                 car.showCarDetails();
@@ -217,21 +224,34 @@ public class Shop {
 
     }
 
-    public void listRentedCars(){
+    public void listRentedCars() {
 
-       // showHeader();
-        for(Car car : cars){
-            if (!car.isAvailableCar()){
+        // showHeader();
+        for (Car car : cars) {
+            if (!car.isAvailableCar()) {
                 car.showCarDetails();
+            }
+        }
+
+        System.out.println("\n");
+        System.out.println("1. Back menu");
+        System.out.println("2. Exit");
+        switch (sc.nextInt()) {
+            case 1: {
+                showMenu();
+                break;
+            }
+            case 2: {
+                System.exit(0);
+                break;
             }
         }
     }
 
-    public void checkIncome(){
+    public void checkIncome() {
 
 
     }
-
 
 
     public void showListMenuOptions() {
@@ -246,9 +266,9 @@ public class Shop {
 
     }
 
-    public void checkListMenuOptions(){
+    public void checkListMenuOptions() {
 
-        switch (sc.nextInt()){
+        switch (sc.nextInt()) {
 
             case 1: {
                 filterMake();
@@ -267,15 +287,16 @@ public class Shop {
                 break;
             }
             case 4: {
-                backMenu();
+                showMenu();
                 break;
             }
 
-            default:break;
+            default:
+                break;
         }
     }
 
-    public void filterMake(){
+    public void filterMake() {
 
         System.out.println();
         System.out.println("Introduceti masina dorita: ");
@@ -288,7 +309,7 @@ public class Shop {
         }
     }
 
-    public void filterModel(){
+    public void filterModel() {
 
         System.out.println();
         System.out.println("Introduceti modelul dorit:");
@@ -303,7 +324,7 @@ public class Shop {
 
     }
 
-    public void filterBudget(){
+    public void filterBudget() {
 
         System.out.println("Introduceti pretul :");
         BigDecimal option = sc.nextBigDecimal();
@@ -318,14 +339,84 @@ public class Shop {
         }
 
 
+    }
+
+    public void showListSortMenu() {
+
+        System.out.println("Select an action from below:");
+        System.out.println("1. Sort List");
+        System.out.println("2. Sort Ascending");
+        System.out.println("3. Sort Descending");
+        System.out.println("4. Sort by Make");
+        System.out.println("5. Sort by Model");
+        System.out.println("6. Sort by Type");
+
+
+        System.out.println("7. Back to previous menu");
+        System.out.println("8. Exit");
 
     }
 
-    public void backMenu(){
-        showMenu();
+    public void sortMenu() {
+
+        switch (sc.nextInt()) {
+
+            case 1: {
+                sortList();
+
+                break;
+            }
+
+            case 2: {
+                // sortAscending();
+
+                break;
+            }
+            case 3: {
+                // sortDescending();
+
+                break;
+            }
+            case 4: {
+                // sortByMake();
+                break;
+            }
+            case 5: {
+                // sortByModel();
+                // showListMenuOptions();
+            }
+            case 6: {
+                //  sortByType();
+                break;
+            }
+            case 7: {
+                // backMenu();
+                break;
+            }
+            case 8: {
+                System.exit(0);
+            }
+            default:
+                break;
+        }
     }
 
 
+    private void sortList() {
+
+        List<Car> sC = new ArrayList<>(cars);
+
+        Collections.sort(sC);
+        for (Car car : sC) {
+            car.showCarDetails();
+        }
+
+    }
+
+    private void sortAscending() {
+
+
+    }
 
 
     public void calculatePrice(int numberOfDays) {

@@ -3,7 +3,7 @@ package ro.jademy.carrental.car;
 import java.math.BigDecimal;
 
 
-public abstract class Car {
+public abstract class Car implements Comparable<Car> {
 
     // Q: how can we better represent the car make?
     private String make;
@@ -33,7 +33,6 @@ public abstract class Car {
         this.engine = engine;
         this.basePrice = basePrice;
         this.availableCar = availableCar;
-
 
 
     }
@@ -97,7 +96,7 @@ public abstract class Car {
         return super.toString();
     }
 
-    public void showCarDetails(){
+    public void showCarDetails() {
 
 
         String outPut = String.format("|| %-10s || %-10s || %-10s || %-10s || %-10s || %-10s || %-10s || %-12s " +
@@ -114,4 +113,24 @@ public abstract class Car {
 //        carState.setStartDate(start);
 //        carState.setEndDate(end);
 //    }
+
+
+    @Override
+    public int compareTo(Car car) {
+
+        if (make.compareToIgnoreCase(car.make) != 0) {
+            return make.compareToIgnoreCase(car.make);
+        }
+
+        if (model.compareToIgnoreCase(car.model) != 0) {
+            return model.compareToIgnoreCase(car.model);
+        }
+
+        if (carType.compareTo(car.carType) != 0) {
+            return carType.compareTo(car.carType);
+        }
+
+
+        return 0;
+    }
 }
